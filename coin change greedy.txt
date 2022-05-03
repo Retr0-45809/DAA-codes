@@ -1,0 +1,31 @@
+#include<bits/stdc++.h> 
+using namespace std;
+int minCoins(int coins[], int m, int N)
+{
+  if (N == 0)
+    return 0;
+  int res = INT_MAX;
+  for (int i=0; i<m; i++)
+  {
+    if (coins[i] <= N)
+    {
+      int sub_res = 1 + minCoins(coins, m, N-coins[i]);
+      if (sub_res < res)
+        res = sub_res;
+    }
+  }
+  return res;
+}
+int main() {
+  int total_coins;
+  cout<<"Enter no of coins: ";
+  cin>>total_coins;
+  int coins[total_coins];
+  int i,sum;
+  cout<<"Enter total: ";
+  cin>>sum;
+  cout<<"Enter coins: ";
+  for(i=0;i<total_coins;i++)
+    cin>>coins[i];
+  cout<<"No of coins required is "<<minCoins(coins,total_coins,sum);
+}

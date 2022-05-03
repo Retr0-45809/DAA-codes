@@ -1,0 +1,59 @@
+#include <algorithm>
+#include <chrono>
+#include <iostream>
+#include<vector>
+#define SIZE 10000
+using namespace std;
+using namespace std :: chrono;
+
+void Binary(vector<int> a,long long key)
+{
+ // Get starting timepoint
+auto start1 = high_resolution_clock::now();
+// Call the function, here sort()
+long long mid=0;
+long long first=0;
+long long last=SIZE;
+mid=(first+last)/2;
+while((a[mid]!=key)&&(first<last))
+{
+if(a[mid]>key)
+{
+last=mid-1;
+}
+else
+{
+first=mid+1;
+}
+mid=(first+last)/2;
+}
+if(a[mid]==key)
+{
+cout<<"\nElement found at location:\t"<<mid+1;
+}
+else
+{
+cout<<"Element Not Found\n";
+}
+// Get ending timepoint
+auto stop1 = high_resolution_clock::now();
+auto duration1 = duration_cast<microseconds>(stop1 - start1);
+cout << "\n\nTime taken By Binary Search: " << duration1.count() << " microseconds" << endl;
+}
+
+int main()
+{
+vector<int> a(SIZE);
+auto f = []() -> int { return rand()%400000; };
+// Fill up the vector
+generate(a.begin(), a.end(), f);
+long long key=0;
+sort(a.begin(), a.end());
+for(long long i=0;i<SIZE;i++)
+ {
+ cout<<a[i]<<"\t";
+ }
+cout<<"\n\nEnter the Element to Search\t";
+cin>>key;
+Binary(a,key);
+return 0; }

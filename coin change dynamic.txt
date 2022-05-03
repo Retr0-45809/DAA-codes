@@ -1,0 +1,47 @@
+#include<iostream>
+using namespace std;
+int coinChange(int coin[], int x, int N)
+{
+    int i,j;
+    int dp[N+1][x];
+    int including,excluding;
+    for(j=0;j<x;j++)
+    {
+        dp[0][j]=1;
+    }
+    for(i=1;i<=N;i++)
+    {
+        for(j=0;j<x;j++)
+        {
+            if(i>=coin[j])
+            {
+                including=dp[i-coin[j]][j];
+            }
+            else
+                including=0;
+            if(j>=1)
+                excluding=dp[i][j-1];
+            else
+                excluding=0;
+            dp[i][j]=including+excluding;
+        }
+    }
+    return dp[N][x-1];
+}
+ 
+int main()
+{
+    int i, int x, int N;  
+    cout<<"Enter the amount whose change is required"<<endl;
+    cin>>N;
+    cout<<"Enter the number of distinct values of coins"<<endl;
+    cin>>x;
+    int coin[x];
+    cout<<"Enter the values of coins"<<endl;
+    for(i=0;i<x;i++)
+        cin>>coin[i];
+    cout<<"No. of ways in which Rs."<<N<<" can be changed is ";
+    cout<<coinChange(coin,x,N);
+    cout<<endl;
+    return 0;
+}

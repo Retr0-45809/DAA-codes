@@ -1,0 +1,44 @@
+#include <algorithm>
+#include <chrono>
+#include <iostream>
+#include<vector>
+#define SIZE 10000
+using namespace std;
+using namespace std :: chrono;
+
+void Linear(vector<int> a,long long key)
+{
+ auto start2 = high_resolution_clock::now();
+ int flag=0;
+ for(long long i=0;i<SIZE;i++)
+ {
+ if(a[i]==key)
+ {
+ cout<<"\nElement Found at Location:\t"<<(i+1)<<endl;
+ flag++;
+ break;
+ }
+ }
+ if(flag==0)
+ {
+ cout<<"Element Not Found"<<endl;
+ }
+ auto stop2 = high_resolution_clock::now();
+auto duration2 = duration_cast<microseconds>(stop2-start2);
+cout << "\nTime taken By Linear Search: " << duration2.count() << " microseconds" << endl;
+}
+int main()
+{
+vector<int> a(SIZE);
+auto f = []() -> int { return rand()%400000; };
+// Fill up the vector
+generate(a.begin(), a.end(), f);
+long long key=0;
+for(long long i=0;i<SIZE;i++)
+ {
+ cout<<a[i]<<"\t";
+ }
+cout<<"\n\nEnter the Element to Search\t";
+cin>>key;
+Linear(a,key);
+return 0; }
